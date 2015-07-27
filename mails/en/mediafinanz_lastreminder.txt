@@ -1,0 +1,29 @@
+Guten Tag {firstname} {lastname},
+
+Sie haben am {order_date} eine Bestellung auf {shop_name} getätigt. Trotz Zahlungserinnerung per E-Mail vom {reminder_date} haben wir bis zum jetzigen Zeitpunkt leider keinen vollständigen Zahlungseingang oder einen entsprechenden Retoure verzeichnen können.
+
+Veranlassen Sie daher bitte umgehend die Zahlung des offenen Gesamtbetrages in Höhe von {total_to_pay} auf unser Konto. Der Gesamtbetrag setzt sich aus dem Rechnungsbetrag von {total_paid} Euro und den Mahnkosten von {total_overduefees} Euro zusammen. 
+
+=====================
+Kontoinhaber:
+
+{payment_information} 
+
+Betrag:{total_to_pay} 
+Verwendungszweck:{order_name}
+=====================
+Bitte beachten Sie: Sollten wir innerhalb der angegebenen Frist keinen Zahlungseingang erhalten oder eine entsprechende Retoure verzeichnen, werden wir die Forderung an ein Inkassounternehmen übergeben. 
+
+Als registrierter Kunde können Sie jederzeit in Mein Konto Ihre Bestellungen einsehen und Rechnungen downloaden. 
+
+____________________________
+Mit freundlichen Grüßen
+
+Ihr Team von {shop_name}
+
+
+
+
+
+
+

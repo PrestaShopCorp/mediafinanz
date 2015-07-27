@@ -1,0 +1,28 @@
+
+Guten Tag {firstname} {lastname}, 
+
+vielen Dank für Ihre Bestellung vom {order_date} auf {shop_name}.
+
+Bisher konnten wir zu Ihrer Bestellung leider noch keinen vollständigen Zahlungseingang verzeichnen oder eine Retourensendung verbuchen. Bitte überweisen Sie den noch offenen Betrag in Höhe von {total_paid} Euro innerhalb von sieben Tagen unter Angabe des Verwendungszwecks {order_name} auf das folgende Konto: 
+
+=====================
+{payment_information} 
+=====================
+
+Bitte beachten Sie: Falls es von Ihrer Seite zu einem weiteren Zahlungsverzug kommen sollte und wir innerhalb der nächsten zehn Tage keinen Zahlungseingang oder eine entsprechende Retoure verzeichnen können, behalten wir uns das Recht vor, Ihnen zusätzliche Mahngebühren in Höhe von {total_overduefees} Euro in Rechnung zu stellen.
+
+Sollte sich unser Schreiben mit Ihrer Zahlung überschnitten haben, können Sie diese Zahlungserinnerung selbstverständlich als gegenstandslos betrachten.
+
+Als registrierter Kunde können Sie jederzeit in „Mein Konto“ Ihre Bestellungen einsehen und Rechnungen downloaden.
+____________________________
+
+Mit freundlichen Grüßen
+
+Ihr Team von {shop_name}
+
+
+
+
+
+
+

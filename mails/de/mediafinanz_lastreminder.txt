@@ -1,0 +1,26 @@
+Guten Tag {firstname} {lastname},
+
+Sie haben am {order_date} eine Bestellung auf {shop_name} getätigt. Trotz Zahlungserinnerung per E-Mail vom {reminder_date} haben wir bis zum jetzigen Zeitpunkt leider keinen vollständigen Zahlungseingang oder einen entsprechenden Retoure verzeichnen können.
+
+Veranlassen Sie daher bitte innerhalb von sieben Tagen die Zahlung des offenen Gesamtbetrages auf unser Konto. Der Rechnungsbetrag beträgt {total_paid}. Die zu addierenden Mahnkosten betragen {total_overduefees}. 
+
+=====================
+{payment_information} 
+
+Betrag:{total_to_pay} 
+Verwendungszweck:{order_name}
+=====================
+
+Bitte beachten Sie: Sollten wir innerhalb der angegebenen Frist keinen Zahlungseingang erhalten oder eine entsprechende Retoure verzeichnen, übergeben wir die Forderung an ein Inkassounternehmen.
+
+____________________________
+Mit freundlichen Grüßen
+
+Ihr Team von {shop_name}
+
+
+
+
+
+
+
