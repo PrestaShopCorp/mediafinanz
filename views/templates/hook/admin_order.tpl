@@ -23,19 +23,19 @@
     {if (isset($claim) && $claim)}
         <div class="row">
             <div class="col-lg-2">
-                {l s='File number' mod='mediafinanz'}: {$claim->file_number|escape:'mail':'UTF-8'}
+                {l s='File number' mod='mediafinanz'}: {$claim->file_number|escape:'html':'UTF-8'}
             </div>
             <div class="col-lg-8">
                 {$claim->status_text|escape:'mail':'UTF-8'}
             </div>
             <div class="col-lg-2">
-                <a href="{$link->getAdminLink('AdminInkasso')|escape:'html':'UTF-8'}&amp;id_mf_claim={$claim->id}&amp;viewmf_claims" class="btn btn-default">
+                <a href="{$link->getAdminLink('AdminInkasso')|escape:'html':'UTF-8'}&amp;id_mf_claim={$claim->id|escape:'html':'UTF-8'}&amp;viewmf_claims" class="btn btn-default">
                     {l s='View claim' mod='mediafinanz'}
                 </a>
             </div>
         </div>
     {elseif (isset($id_order) && $id_order)}
-        <a href="{$link->getAdminLink('AdminInkasso')|escape:'html':'UTF-8'}&amp;order_list[]={$id_order}&amp;createclaims=true" class="btn btn-default">
+        <a href="{$link->getAdminLink('AdminInkasso')|escape:'html':'UTF-8'}&amp;order_list[]={$id_order|escape:'html':'UTF-8'}&amp;createclaims=true" class="btn btn-default">
             {l s='Create claim' mod='mediafinanz'}
         </a>
     {/if}

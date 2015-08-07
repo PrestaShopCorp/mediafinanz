@@ -20,16 +20,16 @@
         {l s='Mediafinanz' mod='mediafinanz'}
     </legend>
     {if (isset($claim) && $claim)}
-            {l s='File number' mod='mediafinanz'}: {$claim->file_number|escape:'mail':'UTF-8'}
+            {l s='File number' mod='mediafinanz'}: {$claim->file_number|escape:'html':'UTF-8'}
             <br><br>
             {$claim->status_text|escape:'mail':'UTF-8'}
             <br>
-            <a href="{$link->getAdminLink('AdminInkasso')|escape:'html':'UTF-8'}&amp;id_mf_claim={$claim->id}&amp;viewmf_claims" class="button">
+            <a href="{$link->getAdminLink('AdminInkasso')|escape:'html':'UTF-8'}&amp;id_mf_claim={$claim->id|escape:'html':'UTF-8'}&amp;viewmf_claims" class="button">
                 {l s='View claim' mod='mediafinanz'}
             </a>
         </div>
     {elseif (isset($id_order) && $id_order)}
-        <a href="{$link->getAdminLink('AdminInkasso')|escape:'html':'UTF-8'}&amp;order_list[]={$id_order}&amp;createclaims=true" class="button">
+        <a href="{$link->getAdminLink('AdminInkasso')|escape:'html':'UTF-8'}&amp;order_list[]={$id_order|escape:'html':'UTF-8'}&amp;createclaims=true" class="button">
             {l s='Create claim' mod='mediafinanz'}
         </a>
     {/if}

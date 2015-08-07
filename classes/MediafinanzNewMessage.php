@@ -54,7 +54,7 @@ class MediafinanzNewMessage extends ObjectModel
 		{
 			$where = array();
 			$where[] = 'a.`id_shop`='.(int)$id_shop;
-			$where[] = 'c.`sandbox`='.Configuration::get('MEDIAFINANZ_SANDBOX', null, null, (int)$id_shop);
+			$where[] = 'c.`sandbox`='.(int)Configuration::get('MEDIAFINANZ_SANDBOX', null, null, (int)$id_shop);
 
 			if ($unread == true)
 			{

@@ -25,7 +25,7 @@
 		<li><em>{l s='With a Unix Crontab file on your server' mod='mediafinanz'}</em></li>
 	</ol>
     <p>{l s='This cron job will changes status of orders and send reminders every night at 1:00am.' mod='mediafinanz'}</p>
-    <p><code>1 * * * * php -f {$cron_path|escape:'mail':'UTF-8'}cron_reminder.php</code></p>
+    <p><code>1 * * * * php -f {$cron_path|escape:'mail':'UTF-8'}cron_reminder.php secure_key={$secure_key|escape:'html':'UTF-8'}</code></p>
 	<p>
     <em>{l s='Cron is a job scheduler for Unix-based systems and it\'s a very handy tool, as you can schedule some routine tasks to run automatically, no matter if you or anyone else is present on your website: as long as the server hosting your site is running, cron will do it\'s job. To activate cron for this module, add the line below to your crontab file.' mod='mediafinanz'}</em>
     <em>{l s='You can edit a crontab record with following methods:' mod='mediafinanz'}</em>

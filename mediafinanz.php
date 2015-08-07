@@ -41,11 +41,8 @@ class Mediafinanz extends Module
 		$this->tab = 'payments_gateways';
 		$this->version = '1.0.0';
 		$this->author = 'Mediafinanz';
+		$this->module_key = 'aa6b12d31113b93a26208c220115f7e9';
 		$this->need_instance = 0;
-		$this->ps_versions_compliancy = array(
-			'min' => '1.5.0.0',
-			'max' => _PS_VERSION_
-		);
 		$this->bootstrap = true;
 
 		parent::__construct();
@@ -58,6 +55,12 @@ class Mediafinanz extends Module
 
 	public function install()
 	{
+		if (!extension_loaded('soap'))
+		{
+			$this->_errors[] = $this->l('You need to enable SOAP extension in PHP.');
+			return false;
+		}
+
 		$return = true;
 
 		$return &= parent::install();
@@ -65,23 +68,11 @@ class Mediafinanz extends Module
 		$return &= $this->createNewOrderStates();
 		$return &= $this->createDbTables();
 
-		/*
-		try
-		{
-			$this->rcopy('modules/'.$this->name.'/install/mails/', 'mails/', array('root' => _PS_ROOT_DIR_));
-			$return &= true;
-		}
-		catch (Exception $e)
-		{
-			$this->_errors[] = $this->l('Could not copy').': modules/'.$this->name.'/install/mails/';
-			return false;
-		}
-		*/
-
 		$return &= $this->registerHook('displayBackOfficeHeader');
 		$return &= $this->registerHook('displayAdminOrder');
 		$return &= $this->registerHook('actionOrderStatusPostUpdate');
 		$return &= $this->installTab('AdminInkasso', 'Inkasso', 'AdminOrders', true);
+		$return &= $this->generateSecureKey();
 		return (bool)$return;
 	}
 
@@ -99,6 +90,11 @@ class Mediafinanz extends Module
 	{
 		$return = true;
 		return (bool)$return;
+	}
+
+	private function generateSecureKey()
+	{
+		return Configuration::updateGlobalValue('MEDIAFINANZ_SECURE_KEY', Tools::passwdGen(10));
 	}
 
 	public function createDbTables()
@@ -221,21 +217,6 @@ class Mediafinanz extends Module
 			}
 		}
 		return $script;
-	}
-
-	public function getModuleUrl($params = false)
-	{
-		$url = 'index.php?controller=AdminModules&token='.
-				Tools::getAdminTokenLite('AdminModules', $this->context).'&configure='.$this->name.
-				'&tab_module='.$this->tab.'&module_name='.$this->name;
-
-		if (is_array($params) && count($params))
-		{
-			foreach ($params as $k => $v)
-				$url .= '&'.$k.'='.$v;
-		}
-
-		return $url;
 	}
 
 	public function installTab($tab_class, $tab_name, $parent = 'AdminModules', $active = false)
@@ -498,106 +479,6 @@ class Mediafinanz extends Module
 		return true;
 	}
 
-	/*
-	public function rcopy($src, $dest, $options = array())
-	{
-		if (empty($src))
-			throw new Exception('Source is empty.');
-
-		if (empty($dest))
-			throw new Exception('Destination is empty.');
-
-		$options_default = array(
-			'file_permission' => 0644,
-			'dir_permission' => 0755,
-			'root' => '/',
-			'ds' => '/'
-		);
-
-		$options = array_merge($options_default, $options);
-
-		$is_win = (DIRECTORY_SEPARATOR == '\\');
-
-		if ($is_win)
-		{
-			$src = strtr($src, '\\', '/');
-			$dest = str_replace('\\', '/', $dest);
-			$options['root'] = str_replace('\\', '/', $options['root']);
-
-			$src = preg_replace('#[a-z]{1}:#i', '', $src);
-			$dest = preg_replace('#[a-z]{1}:#i', '', $dest);
-			$options['root'] = preg_replace('#[a-z]{1}:#i', '', $options['root']);
-		}
-
-		if (!preg_match('#0[1-7]{3}#', sprintf('%o', $options['file_permission'])))
-			$options['file_permission'] = $options_default['file_permission'];
-
-		if (!preg_match('#0[1-7]{3}#', sprintf('%o', $options['dir_permission'])))
-			$options['dir_permission'] = $options_default['dir_permission'];
-
-		if (!in_array($options['ds'], array('/', '\\')))
-			$options['ds'] = $options_default['ds'];
-
-		// DS vom Ende entfernen
-		if (Tools::substr($src, -1) == $options['ds'])
-			$src = Tools::substr($src, 0, -1);
-		if (Tools::substr($dest, -1) == $options['ds'])
-			$dest = Tools::substr($dest, 0, -1);
-
-		// DS vom Anfang entfernen
-		if (Tools::substr($src, 0, 1) == $options['ds'])
-			$src = Tools::substr($src, 1);
-		if (Tools::substr($dest, 0, 1) == $options['ds'])
-			$dest = Tools::substr($dest, 1);
-
-		// DS am Ende hinzufügen
-		if (Tools::substr($options['root'], -1) != $options['ds'])
-			$options['root'] = $options['root'].$options['ds'];
-
-		// DS am Anfang hinzufügen
-		if (Tools::substr($options['root'], 0, 1) != $options['ds'])
-			$options['root'] = $options['ds'].$options['root'];
-
-		if (is_link($options['root'].$src))
-		{
-			if (!symlink(readlink($options['root'].$src), $options['root'].$dest))
-				throw new Exception('Can not create symlink from source: '.$options['root'].$src);
-		}
-		elseif (is_file($options['root'].$src))
-		{
-			if (!Tools::copy($options['root'].$src, $options['root'].$dest))
-				throw new Exception('Can not copy file from source: '.$options['root'].$src);
-
-			if (!$is_win)
-				chmod($options['root'].$dest, $options['file_permission']);
-		}
-		elseif (is_dir($options['root'].$src))
-		{
-			if (is_file($options['root'].$dest) || is_link($options['root'].$dest))
-				throw new Exception('Destination must be a directory: '.$options['root'].$dest);
-			elseif (!is_dir($options['root'].$dest) && !mkdir($options['root'].$dest,
-					(!$is_win ? $options['dir_permission'] : null)))
-				throw new Exception('Can not create destination directory: '.$options['root'].$dest);
-
-			if (!$dir = dir($options['root'].$src))
-				throw new Exception('Can not open directory: '.$options['root'].$src);
-
-			while (false !== ($entry = $dir->read()))
-			{
-				if ($entry == '.' || $entry == '..')
-					continue;
-
-				$this->rcopy($src.$options['ds'].$entry, $dest.$options['ds'].$entry, $options);
-			}
-			$dir->close();
-		}
-		else
-			throw new Exception('No file or directory: '.$options['root'].$src);
-
-		return true;
-	}
-	*/
-
 	public function getContent()
 	{
 		$html = '';
@@ -641,30 +522,15 @@ class Mediafinanz extends Module
 			);
 			$registration_wrapper = $this->display(__FILE__, 'views/templates/admin/registration_wrapper'.((_PS_VERSION_ < '1.6.0.0')?'_15':'').'.tpl');
 
-			if (_PS_VERSION_ < '1.6.0.0')
-				$html .=
-				'<ul class="idTabs mediafinanz-tabs clearfix">
-					<li><a href="#settings_pane" class="'.($active_registration ? '' : 'selected').'">'.$this->l('Settings').'</a></li>
-					<li><a href="#registration_pane" class="'.($active_registration ? 'selected' : '').'">'.$this->l('Registration').'</a></li>
-					</ul>
-					<div id="settings_pane" class="mediafinanz-tabs-div">'.$this->displayFormSettings().'</div>
-					<div id="registration_pane" class="mediafinanz-tabs-div">'.$registration_wrapper.'</div>';
-			else
-				$html .=
-					'<ul class="nav nav-tabs">
-						<li class="'.($active_registration ? '' : 'active').'"><a data-toggle="tab" href="#settings_pane">'.$this->l('Settings').'</a></li>
-					<li class="'.($active_registration ? 'active' : '').'"><a data-toggle="tab" href="#registration_pane">'.$this->l('Registration').'</a></li>
-					</ul>
-					<div class="tab-content panel">
-						<div id="settings_pane" class="tab-pane '.($active_registration ? '' : 'active').'"><div class="module_info alert alert-success"><h4>'
-						.$this->l('Ask us!').'</h4>'
-						.$this->l('Do you need support on setting up the mediafinanz feature? Don\'t hesitate to contact the mediafinanz team monday till friday by phone:').' <b>+49 541/2029-110</b> '
-						.$this->l('Monday till Friday by phone').
-						'</div>'
-						.$this->displayFormSettings().'</div>
-						<div id="registration_pane" class="tab-pane '.($active_registration ? 'active' : '').'">'.$registration_wrapper.'</div>
-					</div>
-					';
+			$this->smarty->assign(
+				array(
+					'active_registration' => $active_registration,
+					'form_settings_html' => $this->displayFormSettings(),
+					'registration_wrapper_html' => $registration_wrapper
+				)
+			);
+
+			$html = $this->display(__FILE__, 'views/templates/admin/tabs'.((_PS_VERSION_ < '1.6.0.0')?'_15':'').'.tpl');
 		}
 		return $html;
 	}
@@ -1580,22 +1446,12 @@ class Mediafinanz extends Module
 	{
 		$groups = $this->getGroups($this->context->language->id, true);
 		$group_reminder_days = Tools::getValue('groupReminderDays');
-		$return = '';
 
 		if (count($groups))
 		{
 			$group_values = self::getGroupReminderSettings();
 
-			$return .= '
-			<div class="panel col-lg-12">
-	        	<div class="panel-heading">
-		    		<i class="icon-cogs"></i>'.$this->l('Number of days for reminder').'
-	    		</div>
-				<div class="table-responsive clearfix">
-				<span id="helpBlock" class="help-block">'.$this->l('Please specify payment due for different customer groups').'</span>';
-
-			$i = 1;
-			foreach ($groups as $group)
+			foreach ($groups as &$group)
 			{
 				$value = '';
 				if (isset($group_reminder_days[$group['id_group']]))
@@ -1606,41 +1462,28 @@ class Mediafinanz extends Module
 						$value = $group_values[$group['id_group']];
 				}
 
-				$return .= '
-					<div class="form-group ">
-	                    <label class="control-label col-lg-3">'.$group['name'].' ('.$this->l('Days').')</label>
-	                    <div class="col-lg-3 ">
-	                        <input type="text" size="3" name="groupReminderDays['.$group['id_group'].']" value="'.$value.'" />
-	                    </div>
-	                </div>';
-				$i++;
+				$group['value'] = $value;
 			}
 
-			$return .= '</div></div>';
+			$this->smarty->assign(
+				array(
+					'groupreminder_data' => $groups
+				)
+			);
 		}
-		return $return;
+		return $this->display(__FILE__, 'views/templates/admin/group_reminder.tpl');
 	}
 
 	private function displayLastReminderDays()
 	{
 		$groups = $this->getGroups($this->context->language->id, true);
 		$group_lastreminder_days = Tools::getValue('groupLastReminderDays');
-		$return = '';
 
 		if (count($groups))
 		{
 			$group_values = self::getGroupLastReminderSettings();
 
-			$return .= '
-			<div class="panel col-lg-12">
-	        	<div class="panel-heading">
-		    		<i class="icon-cogs"></i>'.$this->l('Number of days for last reminder').'
-	    		</div>
-				<div class="table-responsive clearfix">
-				<span id="helpBlock" class="help-block">'.$this->l('Please specify payment due for different customer groups').'</span>';
-
-			$i = 1;
-			foreach ($groups as $group)
+			foreach ($groups as &$group)
 			{
 				$value = '';
 				if (isset($group_lastreminder_days[$group['id_group']]))
@@ -1651,24 +1494,23 @@ class Mediafinanz extends Module
 						$value = $group_values[$group['id_group']];
 				}
 
-				$return .= '
-					<div class="form-group ">
-	                    <label class="control-label col-lg-3">'.$group['name'].' ('.$this->l('Days').')</label>
-	                    <div class="col-lg-3 ">
-	                        <input type="text" size="3" name="groupLastReminderDays['.$group['id_group'].']" value="'.$value.'" />
-	                    </div>
-	                </div>';
-				$i++;
+				$group['value'] = $value;
 			}
-			$return .= '</div></div>';
+
+			$this->smarty->assign(
+				array(
+					'groupreminder_data' => $groups
+				)
+			);
 		}
-		return $return;
+		return $this->display(__FILE__, 'views/templates/admin/group_lastreminder.tpl');
 	}
 
 	private function displayCronInformation()
 	{
 		$this->smarty->assign(array(
 			'cron_path' => dirname(__FILE__).DIRECTORY_SEPARATOR,
+			'secure_key' => Configuration::getGlobalValue('MEDIAFINANZ_SECURE_KEY')
 		));
 
 		return $this->display(__FILE__, 'views/templates/admin/cron_information.tpl');
@@ -1876,19 +1718,20 @@ class Mediafinanz extends Module
 			if (!Validate::isPrice($overduefees))
 				$form_errors[] = $this->_errors[] = $this->l('Overdue fees must to be sum of money');
 
-			if (count($form_errors) == 0 &&
-				Configuration::updateValue('MEDIAFINANZ_REMINDER_INFO', Tools::getValue('MEDIAFINANZ_REMINDER_INFO')) &&
-				Configuration::updateValue('MEDIAFINANZ_NOTE', Tools::getValue('MEDIAFINANZ_NOTE')) &&
-				Configuration::updateValue('MEDIAFINANZ_OVERDUEFEES', Tools::ps_round((float)$overduefees), 2) &&
-				Configuration::updateValue('MEDIAFINANZ_CLAIM_TYPE', (int)Tools::getValue('MEDIAFINANZ_CLAIM_TYPE')) &&
-				Configuration::updateValue('MEDIAFINANZ_GROUP_LASTREM', Tools::jsonEncode($group_lastreminder_days)) &&
-				Configuration::updateValue('MEDIAFINANZ_GROUP_REM', Tools::jsonEncode($group_reminder_days)) &&
-				Configuration::updateValue('MEDIAFINANZ_REMINDER_INIT_OS', Tools::jsonEncode($init_os)) &&
-				Configuration::updateValue('MEDIAFINANZ_LOG_ENABLED', (int)Tools::getValue('MEDIAFINANZ_LOG_ENABLED')) &&
-				Configuration::updateValue('MEDIAFINANZ_SANDBOX', (int)Tools::getValue('MEDIAFINANZ_SANDBOX')))
+			$updated = true;
+			$updated &= (count($form_errors) == 0);
+			$updated &= Configuration::updateValue('MEDIAFINANZ_REMINDER_INFO', Tools::getValue('MEDIAFINANZ_REMINDER_INFO'));
+			$updated &= Configuration::updateValue('MEDIAFINANZ_NOTE', Tools::getValue('MEDIAFINANZ_NOTE'));
+			$updated &= Configuration::updateValue('MEDIAFINANZ_OVERDUEFEES', Tools::ps_round((float)$overduefees), 2);
+			$updated &= Configuration::updateValue('MEDIAFINANZ_CLAIM_TYPE', (int)Tools::getValue('MEDIAFINANZ_CLAIM_TYPE'));
+			$updated &= Configuration::updateValue('MEDIAFINANZ_GROUP_LASTREM', Tools::jsonEncode($group_lastreminder_days));
+			$updated &= Configuration::updateValue('MEDIAFINANZ_GROUP_REM', Tools::jsonEncode($group_reminder_days));
+			$updated &= Configuration::updateValue('MEDIAFINANZ_REMINDER_INIT_OS', Tools::jsonEncode($init_os));
+			$updated &= Configuration::updateValue('MEDIAFINANZ_LOG_ENABLED', (int)Tools::getValue('MEDIAFINANZ_LOG_ENABLED'));
+			$updated &= Configuration::updateValue('MEDIAFINANZ_SANDBOX', (int)Tools::getValue('MEDIAFINANZ_SANDBOX'));
 
+			if ($updated == true)
 				$this->_confirmations[] = $this->l('Settings updated');
-
 		}
 
 		$messages = '';

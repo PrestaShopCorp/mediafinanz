@@ -21,12 +21,20 @@ require(dirname(__FILE__).'/../../config/config.inc.php');
 require_once(_PS_ROOT_DIR_.'/init.php');
 require_once(dirname(__FILE__).'/mediafinanz.php');
 
-$module = new Mediafinanz();
+if (Tools::isPHPCLI() && isset($argc) && isset($argv))
+	Tools::argvToGET($argc, $argv);
 
-$return = true;
-$return &= $module->sendReminders();
+if (Tools::getValue('secure_key') != Configuration::getGlobalValue('MEDIAFINANZ_SECURE_KEY'))
+	die('Secure key is wrong');
+else
+{
+	$module = new Mediafinanz();
+
+	$return = true;
+	$return &= $module->sendReminders();
 
 
-$log_type = 'cron';
-$message = 'Return: '.print_r($return, true);
-Mediafinanz::logToFile($message, $log_type);
+	$log_type = 'cron';
+	$message = 'Return: '.print_r($return, true);
+	Mediafinanz::logToFile($message, $log_type);
+}

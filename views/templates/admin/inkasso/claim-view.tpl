@@ -21,7 +21,7 @@
     <div class="col-lg-6">
         <div class="panel">
             {if ($claim_option == 'close')}
-                <form id="form_{$claim_option}" method="post" action="{$smarty.server.REQUEST_URI|escape:'html':'UTF-8'}" onsubmit="return confirm('{l s='Do you want to close claim?' mod='mediafinanz'}');">
+                <form id="form_{$claim_option|escape:'html':'UTF-8'}" method="post" action="{$smarty.server.REQUEST_URI|escape:'html':'UTF-8'}" onsubmit="return confirm('{l s='Do you want to close claim?' mod='mediafinanz'}');">
                     <div class="row">
                         <div class="col-lg-12">
                             <input type="hidden" name="submitCloseClaim" value="true">
