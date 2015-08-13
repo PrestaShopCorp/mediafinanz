@@ -7,7 +7,7 @@
 							</td>
 						</tr><tr><td align="center" class="titleblock" style="padding:7px 0;">
 		<font size="2" face="Open-sans, sans-serif" color="#555454">
-			<span class="title" style="font-weight:500;font-size:28px;text-transform:uppercase;line-height:33px;">Guten Tag {firstname} {lastname},</span></font>
+			<span class="title" style="font-weight:500;font-size:28px;text-transform:uppercase;line-height:33px;">Hi {firstname} {lastname},</span></font>
 	</td>
 </tr><tr><td class="space_footer" style="padding:0;"> </td>
 </tr><tr><td class="box" style="border:1px solid #D6D4D4;background-color:#f8f8f8;padding:7px 0;">
@@ -18,28 +18,26 @@
 							Bisher konnten wir zu Ihrer Bestellung noch keinen vollständigen Zahlungseingang verzeichnen oder eine Retourensendung verbuchen. 
 						</p>
 					
-					<p>
-In der Hektik des Alltags kann schon mal das Begleichen einer Rechnung vergessen werden. Bitte überweisen Sie den noch offenen Betrag in Höhe von <strong>{total_paid} Euro</strong> innerhalb
-von <strong>7 Tagen</strong>  unter Angabe des Verwendungszwecks <strong>{order_name}</strong> auf das folgende Konto:
-
-                        </p>
+					<p><span id="result_box3" lang="en" xml:lang="en">In the bustle of everyday life, the settling of an invoice can sometimes be forgotten. Please remit the outstanding amount of <strong>{total_paid} Euro</strong> within <strong>7 days</strong>, stating the intended use of <strong>{order_name}</strong> to the following account:</span>
+					</p>
+					<p>In der Hektik des Alltags kann schon mal das Begleichen einer Rechnung vergessen werden. Bitte überweisen Sie den noch offenen Betrag in Höhe von <strong>{total_paid} Euro</strong> innerhalb
+						von <strong>7 Tagen</strong>  unter Angabe des Verwendungszwecks <strong>{order_name}</strong> auf das folgende Konto:
+						
+					</p>
 					<blockquote><i>{payment_information} </i></blockquote>
-<p>Bitte beachten Sie: Falls es von Ihrer Seite zu einem weiteren Zahlungsverzug kommen sollte und wir innerhalb der nächsten zehn Tage
-	keinen Zahlungseingang oder eine entsprechende Retoure verzeichnen können, behalten wir uns das Recht vor, Ihnen zusätzliche Mahngebühren in Höhe von <strong>{total_overduefees}</strong> Euro in Rechnung zu stellen.</p>
-<p>Sollte sich unser Schreiben mit Ihrer Zahlung überschnitten haben, können Sie diese Zahlungserinnerung selbstverständlich als gegenstandslos betrachten.					</p></td>
+<p><span id="result_box2" lang="en" xml:lang="en">Please notice: If it should come to another delay in payment from your side we reserve the right to bill you with an additional reminder fee in the amount of <strong>{total_overduefees}</strong> Euro.</span></p>
+<p><span id="result_box" lang="en" xml:lang="en">If our letter have overlapped with your payment, please regard this reminder as  baseless.</span></p></td>
 				<td width="10" style="padding:7px 0;"> </td>
 			</tr></table></td>
 </tr><tr><td class="space_footer" style="padding:0;"> </td>
-</tr><tr><td class="linkbelow" style="padding:7px 0;">
-		<font size="2" face="Open-sans, sans-serif" color="#555454">
-			<span>Als registrierter Kunde können Sie jederzeit in  <a href="%7Bmy_account_url%7D" style="color:#337ff1;">Mein Konto</a> Ihre Bestellungen einsehen und Rechnungen downloaden. 
-				</span>
-			</font>
-		</td>
-</tr><tr><td class="footer" style="border-top:4px solid #333333;padding:7px 0;">
-						<p>Mit freundlichen Grüßen</p>
-						<p>Ihr Team von <a href="%7Bshop_url%7D" style="color:#337ff1;">{shop_name}</a></p>
-					</td>
-					</tr></table></td>
+</tr>
+<tr>
+	<td class="linkbelow" style="padding:7px 0;"><font size="2" face="Open-sans, sans-serif" color="#555454"> <span> You can review your order and download your invoice from the <a href="%7Bhistory_url%7D" style="color:#337ff1;">&quot;Order history&quot;</a> section of your customer account by clicking <a href="%7Bmy_account_url%7D" style="color:#337ff1;">&quot;My account&quot;</a> on our shop. </span></font></td>
+</tr>
+<tr>
+	<td class="footer" style="border-top:4px solid #333333;padding:7px 0"><p>Best regards</p>
+		<p>Your <a href="{shop_url}" style="color:#337ff1">{shop_name}</a> Team</p></td>
+</tr>
+					</table></td>
 				<td class="space" style="width:20px;padding:7px 0;"> </td>
 			</tr></table>

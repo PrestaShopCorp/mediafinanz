@@ -1,0 +1,31 @@
+Hi {firstname} {lastname}, 
+
+===========================
+
+Bisher konnten wir zu Ihrer Bestellung noch keinen vollständigen Zahlungseingang verzeichnen oder eine Retourensendung verbuchen. 
+
+In the bustle of everyday life, the settling of an invoice can sometimes be forgotten. Please remit the outstanding amount of {total_paid} Euro within 7 days, stating the intended use of {order_name} to the following account: 
+
+In der Hektik des Alltags kann schon mal das Begleichen einer Rechnung vergessen werden. Bitte überweisen Sie den noch offenen Betrag in Höhe von {total_paid} Euro innerhalb von 7 Tagen unter Angabe des Verwendungszwecks {order_name} auf das folgende Konto: 
+
+===========================
+{payment_information} 
+===========================
+
+Please notice: If it should come to another delay in payment from your side we reserve the right to bill you with an additional reminder fee in the amount of {total_overduefees} Euro.
+
+If our letter have overlapped with your payment, please regard this reminder as baseless.
+
+
+You can review your order and download your invoice from the "Order history" section of your customer account by clicking "My account" on our shop. 
+
+Best regards
+===========================
+Your {shop_name} Team
+
+
+
+
+
+
+

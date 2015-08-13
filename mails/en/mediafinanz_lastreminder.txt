@@ -1,25 +1,24 @@
-Guten Tag {firstname} {lastname},
+Hello {firstname} {lastname},
 
-Sie haben am {order_date} eine Bestellung auf {shop_name} getätigt. Trotz Zahlungserinnerung per E-Mail vom {reminder_date} haben wir bis zum jetzigen Zeitpunkt leider keinen vollständigen Zahlungseingang oder einen entsprechenden Retoure verzeichnen können.
+================================
 
-Veranlassen Sie daher bitte umgehend die Zahlung des offenen Gesamtbetrages in Höhe von {total_to_pay} auf unser Konto. Der Gesamtbetrag setzt sich aus dem Rechnungsbetrag von {total_paid} Euro und den Mahnkosten von {total_overduefees} Euro zusammen. 
+On {order_date} you have placed an order on {shop_name order_date}. Despite payment reminder email from {reminder_date} we unfortunately, haven't recieved either the complete amount or an appropriate return.
 
-=====================
-Kontoinhaber:
-
+Therefore please prompt the payment to our account within seven days. The invoice amount is {total_paid}. Reminder fees shall amount {total_overduefees}. 
+================================
 {payment_information} 
+================================
 
-Betrag:{total_to_pay} 
-Verwendungszweck:{order_name}
-=====================
-Bitte beachten Sie: Sollten wir innerhalb der angegebenen Frist keinen Zahlungseingang erhalten oder eine entsprechende Retoure verzeichnen, werden wir die Forderung an ein Inkassounternehmen übergeben. 
+Amount:{total_to_pay} 
+Reference:{order_name}
 
-Als registrierter Kunde können Sie jederzeit in Mein Konto Ihre Bestellungen einsehen und Rechnungen downloaden. 
+Please note: If we shouldn't receive a payment or a return within the specified time limit, we shall pass the call to our collection agency.
 
-____________________________
-Mit freundlichen Grüßen
+You can review your order and download your invoice from the "Order history" section of your customer account by clicking "My account" on our shop. 
 
-Ihr Team von {shop_name}
+Best regards
+================================
+Your {shop_name} Team
 
 
 

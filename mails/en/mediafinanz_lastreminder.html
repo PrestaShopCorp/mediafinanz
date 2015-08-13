@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-		<title>Mahnung Ihrer Bestellung {order_name} </title>
+		<title>Mahnung zu Ihrer Bestellung  {order_name}</title>
 		
 
 		<style>	@media only screen and (max-width: 300px){ 
@@ -70,7 +70,7 @@
 <tr>
 	<td align="center" class="titleblock" style="padding:7px 0">
 		<font size="2" face="Open-sans, sans-serif" color="#555454">
-			<span class="title" style="font-weight:500;font-size:28px;text-transform:uppercase;line-height:33px">Guten Tag {firstname} {lastname},</span></font></td>
+			<span class="title" style="font-weight:500;font-size:28px;text-transform:uppercase;line-height:33px">Hello {firstname} {lastname},</span></font></td>
 </tr>
 <tr>
 	<td class="space_footer" style="padding:0!important">&nbsp;</td>
@@ -81,13 +81,12 @@
 			<tr>
 				<td width="10" style="padding:7px 0">&nbsp;</td>
 				<td style="padding:7px 0">
-					<p>Sie  haben am <strong>{order_date}</strong> eine Bestellung auf {shop_name} getätigt.  Trotz Zahlungserinnerung per E-Mail von {reminder_date} haben  wir bis zum jetzigen Zeitpunkt leider keinen vollständigen  Zahlungseingang oder einen entsprechenden Retoure verzeichnen können. </p>
-					<p>Veranlassen  Sie daher bitte umgehend die Zahlung des offenen Gesamtbetrages in Höhe von <strong>{total_to_pay}</strong> auf unser Konto.  Der Gesamtbetrag  setzt sich aus dem Rechnungsbetrag von {total_paid} Euro und den  Mahnkosten von {total_overduefees} Euro zusammen. </p>
-					<p><strong>Kontoinhaber:</strong></p>
+					<p><span id="result_box" lang="en">On {order_date} you have placed an order  on {shop_name order_date}. Despite payment reminder email from {reminder_date} we unfortunately, haven't recieved </span>either the complete amount or an appropriate return.</p>
+					<p><span lang="en">Therefore please prompt the payment to our account within seven days.</span> The invoice amount is <strong>{total_paid}</strong>. <span id="result_box2" lang="en">Reminder fees shall amount </span> <strong>{total_overduefees}. </strong></p>
 					<blockquote><i>{payment_information} </i></blockquote>
-					<p>Betrag:{total_to_pay}  <br>
-						Verwendungszweck:{order_name}</p>
-					<p>Bitte beachten Sie: Sollten wir innerhalb der angegebenen Frist keinen Zahlungseingang erhalten oder eine entsprechende Retoure verzeichnen, werden wir die Forderung an ein Inkassounternehmen übergeben.     </p></td>
+					<p>Amount:{total_to_pay}  <br>
+						Reference:{order_name}</p>
+					<p><span id="result_box3" lang="en"><strong>Please note:</strong> If we shouldn't receive a payment or a return within the specified time limit, we shall pass the call to our collection agency.</span></p></td>
 				<td width="10" style="padding:7px 0">&nbsp;</td>
 				</tr>
 			</table>
@@ -97,11 +96,11 @@
 	<td class="space_footer" style="padding:0!important">&nbsp;</td>
 </tr>
 <tr>
-	<td class="linkbelow" style="padding:7px 0"><font size="2" face="Open-sans, sans-serif" color="#555454"> <span>Als registrierter Kunde können Sie jederzeit in <a href="{my_account_url}" style="color:#337ff1">Mein Konto</a> Ihre Bestellungen einsehen und Rechnungen downloaden. </span> </font></td>
+	<td class="linkbelow" style="padding:7px 0;"><font size="2" face="Open-sans, sans-serif" color="#555454"> <span> You can review your order and download your invoice from the <a href="%7Bhistory_url%7D" style="color:#337ff1;">"Order history"</a> section of your customer account by clicking <a href="%7Bmy_account_url%7D" style="color:#337ff1;">"My account"</a> on our shop. </span> </font></td>
 </tr>
 <tr>
-	<td class="footer" style="border-top:4px solid #333333;padding:7px 0"><p>Mit freundlichen Grüßen</p>
-		<p>Ihr Team von <a href="{shop_url}" style="color:#337ff1">{shop_name}</a></p></td>
+	<td class="footer" style="border-top:4px solid #333333;padding:7px 0"><p>Best regards</p>
+		<p>Your  <a href="{shop_url}" style="color:#337ff1">{shop_name}</a> Team</p></td>
 </tr>
 					</table>
 				</td>
