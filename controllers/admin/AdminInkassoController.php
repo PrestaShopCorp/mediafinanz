@@ -383,7 +383,7 @@ class AdminInkassoController extends ModuleAdminController
 												_DB_PREFIX_.'orders` a LEFT JOIN `'._DB_PREFIX_.
 												'orders` o ON (o.`id_order` = a.`id_order` AND o.`id_shop` = a.`id_shop`) LEFT JOIN `'.
 												_DB_PREFIX_.'customer` c ON (c.`id_customer` = a.`id_customer`) WHERE a.`id_order` IN ('.
-												pSQL(implode(', ', $order_ids)).') '.
+												implode(', ', array_map('intval', $order_ids)).') '.
 												Shop::addSqlRestriction(Shop::SHARE_ORDER, 'a', 'shop'));
 
 			$claim = Tools::getValue('claim');
@@ -649,7 +649,7 @@ class AdminInkassoController extends ModuleAdminController
 												'orders` o ON (o.`id_order` = a.`id_order` AND o.`id_shop` = a.`id_shop`) LEFT JOIN '._DB_PREFIX_.
 												'mf_claims c ON a.`id_order`=c.`id_order` AND c.`sandbox`='.
 												(int)Configuration::get('MEDIAFINANZ_SANDBOX').' WHERE c.`id_order` IS NULL AND a.`id_order` IN ('.
-												pSQL(implode(', ', $order_ids)).')'.
+												implode(', ', array_map('intval', $order_ids)).')'.
 												Shop::addSqlRestriction(Shop::SHARE_ORDER, 'a', 'shop'));
 
 			foreach ($list as $row)
