@@ -33,13 +33,16 @@
                 <div style="width: 30%;">
                     {l s='Shop' mod='mediafinanz'}: {$tr.id_shop|escape:'htmlall':'UTF-8'}
                     <br>
-                    {l s='Configuration completed' mod='mediafinanz'}: {$tr.configuration_completed|escape:'htmlall':'UTF-8'}
+                    {*{l s='Configuration completed' mod='mediafinanz'}: {$tr.configuration_completed|escape:'htmlall':'UTF-8'}*}
                     <br>
                     {l s='Mode' mod='mediafinanz'}: {$tr.mode_for_shop|escape:'htmlall':'UTF-8'}
                 </div>
                 <div class="createclaim-mediafinanz-left">
                     <label>{l s='Date of order' mod='mediafinanz'}:</label>
-                    <div class="margin-form"><p class="form-control-static">{$tr.date_add|escape:'htmlall':'UTF-8'}</p></div>
+                    <div class="margin-form">
+                        <p class="form-control-static">{$tr.date_add|escape:'htmlall':'UTF-8'}</p>
+                        <input type="hidden" name="claim[{$tr.id_order}][dateoforigin]" value="{$tr.claim.dateoforigin}">
+                    </div>
                     <div class="clear"></div>
 
                     <label>{l s='Date of reminder' mod='mediafinanz'}:</label>
@@ -79,22 +82,22 @@
                     <div class="clear"></div>
 
                     <label>{l s='Overdue fees' mod='mediafinanz'}:</label>
-                    <div class="margin-form"><input type="text" name="claim[{$tr.id_order|escape:'htmlall':'UTF-8'}][overduefees]" value="{$tr.claim.overduefees|escape:'htmlall':'UTF-8'}" onkeyup="this.value = this.value.replace(/,/g, '.');"> {$currency->sign|escape:'htmlall':'UTF-8'}</div>
+                    <div class="margin-form"><input type="text" name="claim[{$tr.id_order|escape:'htmlall':'UTF-8'}][overduefees]" value="{$tr.claim.overduefees|escape:'htmlall':'UTF-8'}"> {$currency->sign|escape:'htmlall':'UTF-8'}</div>
                     <div class="clear"></div>
 
-                    <label>{l s='Date of origin' mod='mediafinanz'}:</label>
+                    {*<label>{l s='Date of origin' mod='mediafinanz'}:</label>
                     <div class="margin-form"><p class="form-control-static">{$tr.claim.dateoforigin|escape:'htmlall':'UTF-8'}</p>
-                        {*<input type="hidden" name="claim[{$tr.id_order}][dateoforigin]" value="{$tr.claim.dateoforigin}">*}
+                        <input type="hidden" name="claim[{$tr.id_order}][dateoforigin]" value="{$tr.claim.dateoforigin}">
                         <div class="input-group">
                             <input class="datepicker" type="text" value="{$tr.claim.dateoforigin|escape:'htmlall':'UTF-8'}" name="claim[{$tr.id_order|escape:'htmlall':'UTF-8'}][dateoforigin]">
                         </div>
-                    </div>
+                    </div>*}
                     <div class="clear"></div>
 
                     <label>{l s='Date of last reminder' mod='mediafinanz'}:</label>
-                    <div class="margin-form"><p class="form-control-static">{$tr.claim.dateoflastreminder|escape:'htmlall':'UTF-8'}</p>
+                    <div class="margin-form">{*<p class="form-control-static">{$tr.claim.dateoflastreminder|escape:'htmlall':'UTF-8'}</p>*}
                         {*<input type="hidden" name="claim[{$tr.id_order}][dateoflastreminder]" value="{$tr.claim.dateoflastreminder}">*}
-                        <div class="input-group">
+                         <div class="input-group">
                             <input class="datepicker" type="text" value="{$tr.claim.dateoflastreminder|escape:'htmlall':'UTF-8'}" name="claim[{$tr.id_order|escape:'htmlall':'UTF-8'}][dateoflastreminder]">
                         </div>
                     </div>
@@ -112,7 +115,7 @@
                     <div class="clear"></div>
 
                     <label>{l s='Salutation' mod='mediafinanz'}:</label>
-                    <div class="margin-form"><p class="form-control-static">{$tr.debtor.address|escape:'htmlall':'UTF-8'}</p>
+                    <div class="margin-form"><p class="form-control-static">{if $tr.debtor.address == 'm'}{l s='Man' mod='mediafinanz'}{elseif $tr.debtor.address == 'f'}{l s='Woman' mod='mediafinanz'}{elseif $tr.debtor.address == 'c'}{l s='Company' mod='mediafinanz'}{/if}</p>
                         <input type="hidden" name="debtor[{$tr.id_order|escape:'htmlall':'UTF-8'}][address]" value="{$tr.debtor.address|escape:'htmlall':'UTF-8'}">
                     </div>
                     <div class="clear"></div>

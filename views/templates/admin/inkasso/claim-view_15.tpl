@@ -288,7 +288,7 @@ var token = '{$token|escape:'html':'UTF-8'}';
                         <legend>
                             [ {l s='Sender' mod='mediafinanz'}: {$claim_message_history_entity->sender|escape:'html':'UTF-8'} ] [{dateFormat date=date('Y-m-d H:i:s', strtotime($claim_message_history_entity->time)) full=1}]
                         </legend>
-                        {nl2br($claim_message_history_entity->text)|escape:'mail':'UTF-8'}
+                        {$claim_message_history_entity->text|escape:'html':'UTF-8'}
                     </fieldset>
                 {/foreach}
             {/if}
