@@ -1521,12 +1521,14 @@ class Mediafinanz extends Module
             if (in_array(Tools::getValue('log_file'), array('general', 'cron'))) {
                 $key = Tools::getValue('log_file');
                 $file_path = dirname(__FILE__) . '/logs/log_' . $key . '.txt';
+                $file_content = '';
                 if (file_exists($file_path)) {
-                    header('Content-type: text/plain');
-                    header('Content-Disposition: attachment; filename=' . $key . '.txt');
-                    echo file_get_contents($file_path);
-                    exit;
+                    $file_content = file_get_contents($file_path);
                 }
+                header('Content-type: text/plain');
+                header('Content-Disposition: attachment; filename=' . $key . '.txt');
+                echo $file_content;
+                exit;
             }
         }
 
