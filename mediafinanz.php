@@ -39,7 +39,7 @@ class Mediafinanz extends Module
     {
         $this->name = 'mediafinanz';
         $this->tab = 'payments_gateways';
-        $this->version = '1.0.0';
+        $this->version = '1.0.1';
         $this->author = 'Mediafinanz';
         $this->module_key = 'aa6b12d31113b93a26208c220115f7e9';
         $this->need_instance = 0;

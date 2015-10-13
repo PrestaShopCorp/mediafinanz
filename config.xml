@@ -2,7 +2,7 @@
 <module>
 	<name>mediafinanz</name>
 	<displayName><![CDATA[Mediafinanz]]></displayName>
-	<version><![CDATA[1.0.0]]></version>
+	<version><![CDATA[1.0.1]]></version>
 	<description><![CDATA[Mediafinanz debt collection service]]></description>
 	<author><![CDATA[Mediafinanz]]></author>
 	<tab><![CDATA[payments_gateways]]></tab>
